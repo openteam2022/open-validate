@@ -6,7 +6,7 @@ class validater{
 	// 插件描述
 	static name = "validater";
 	static author = "kaijian";
-	static version = "v2.2.0";
+	static version = "v1.0.0-beta";
 	static description = "基于js开发的表达验证插件";
 	static date = "2024-06-12";
 
@@ -225,6 +225,11 @@ class validater{
                 }
             })
         })
+    }
+
+    // 当input输入报错后，开启重新输入即恢复默认样式
+    static onReset(){
+
     }
 
     // 验证单字段参数格式是否正确

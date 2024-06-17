@@ -181,12 +181,12 @@ let rule = {
         // 报错提示文本
         message: {
             id: "显示提示信息的元素id",
-            class: "元素的样式名",
+            class: "元素的样式名",//class暂时未处理
         },
         // 输入框操作
         input:{
             id: "输入框id",
-            class: "添加输入框样式"
+            class: "添加输入框样式" //class暂时未处理
         }
     }
 }
