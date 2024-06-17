@@ -1,5 +1,4 @@
 // src/main.js
-import validate from './validate.js';
-export default function () {
-    console.log(validate);
-}
+import validater from './validater.js';
+
+export default validater;

@@ -6,7 +6,7 @@ import livereload from 'rollup-plugin-livereload'
 import terser from '@rollup/plugin-terser'
 
 // 文件置顶
-const banner = `/* open-validate v1.0.0 */`;
+const banner = `/* open-validater v1.0.0 */`;
 
 export default [
     // js打包
@@ -14,19 +14,19 @@ export default [
         input: 'src/main.js',
         output:  [
             {
-                file: './dist/open-validate.bundle.js',
+                file: './dist/open-validater.bundle.js',
                 format: 'iife',
-                name: 'validate',
+                name: 'validater',
                 sourcemap: true,
-                sourcemapFile: './dist/open-validate.bundle.js.map',
+                sourcemapFile: './dist/open-validater.bundle.js.map',
                 banner
             },
             {
-                file: './dist/open-validate.esm.js',
+                file: './dist/open-validater.esm.js',
                 format: 'es',
-                name: 'validate',
+                name: 'validater',
                 sourcemap: true,
-                sourcemapFile: './dist/open-validate.es.js.map',
+                sourcemapFile: './dist/open-validater.es.js.map',
                 banner
             }
         ],
@@ -51,24 +51,24 @@ export default [
             livereload('dist'),
         ]
     },
-    // js打包
+    // js压缩打包
     {
         input: 'src/main.js',
         output:  [
             {
-                file: './dist/open-validate.bundle.min.js',
+                file: './dist/open-validater.bundle.min.js',
                 format: 'iife',
-                name: 'validate',
+                name: 'validater',
                 sourcemap: true,
-                sourcemapFile: './dist/open-validate.bundle.min.js.map',
+                sourcemapFile: './dist/open-validater.bundle.min.js.map',
                 banner
             },
             {
-                file: './dist/open-validate.esm.min.js',
+                file: './dist/open-validater.esm.min.js',
                 format: 'es',
-                name: 'validate',
+                name: 'validater',
                 sourcemap: true,
-                sourcemapFile: './dist/open-validate.es.min.js.map',
+                sourcemapFile: './dist/open-validater.es.min.js.map',
                 banner
             }
         ],

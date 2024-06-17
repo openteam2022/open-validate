@@ -1,11 +1,11 @@
-# open-validate
+# validater
 
 表单验证工具函数库
 
 ## 安装
 
 ```html
-<script src="open-validate.js"></script>
+<script src="open-validater.js"></script>
 ```
 
 ## 使用
@@ -39,12 +39,12 @@ let rule = {
 }
 
 // primose方式
-validate.test(rule).then(res=>{
+validater.test(rule).then(res=>{
     console.log(res)
 })
 
 // 回调方式
-validate.test(rule,(res)=>{
+validater.test(rule,(res)=>{
     console.log(res)
 })
 ```
@@ -93,13 +93,13 @@ let rules = [
 ]
 
 // promise方式
-validate.tests(rules).then(res=>{
+validater.tests(rules).then(res=>{
     console.log(res)
 })
 
 
 // 回调方式
-validate.tests(rules,res=>{
+validater.tests(rules,res=>{
     console.log(res)
 })
 ```
@@ -109,7 +109,7 @@ validate.tests(rules,res=>{
 
 ```js
 // 添加验证规则
-validate.addRule({
+validater.addRule({
     name: "规则名",
     handle: function(value){
         // 验证值，返回false
@@ -122,7 +122,7 @@ validate.addRule({
 
 ```js
 // 添加值是否等于englist验证规则
-validate.addRule({
+validater.addRule({
     name: "english",
     handle: function(value){
         // 验证值，返回false
@@ -146,7 +146,7 @@ let rule = {
 }
 
 // 验证
-validate.test(rule).then(res=>{
+validater.test(rule).then(res=>{
     console.log(res)
 })
 ```
@@ -155,9 +155,9 @@ validate.test(rule).then(res=>{
 
 | 名称                     | 描述        |
 | ---------------------- | --------- |
-| validate.test(rule)    | 验证单个值     |
-| validate.tests(rules)  | 批量验证多个值   |
-| validate.addRule(rule) | 添加自定义验证规则 |
+| validater.test(rule)    | 验证单个值     |
+| validater.tests(rules)  | 批量验证多个值   |
+| validater.addRule(rule) | 添加自定义验证规则 |
 
 ### 规则属性
 
