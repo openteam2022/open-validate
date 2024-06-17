@@ -6,7 +6,7 @@ class validater{
 	// 插件描述
 	static name = "validater";
 	static author = "kaijian";
-	static version = "v1.0.0-beta";
+	static version = "v2.2.0";
 	static description = "基于js开发的表达验证插件";
 	static date = "2024-06-12";
 
@@ -108,59 +108,78 @@ class validater{
     */
     static test(rule,fn){
         return new Promise((j,r)=>{
+            
             // 验证格式是否正确
             validater.#check(rule).then(res=>{
+
                 if(res.status){
+
+                	// 判断验证结果标识符
+		            let mark = true;
+
+		        	// 验证返回信息
+		            let result = {
+		            	status: true,
+		            	name: rule.name || '',
+		            	message: '验证通过'
+		            };
+
                     // 获取验证目标字段值
                     let value = rule.value;
+
                     // 获取验证目标配置的规则
-                    let rules = rule.rules;
-                    // 验证返回信息
-                    let result = {
-                    	status: true,
-                    	name: rule.name || '',
-                    	message: ''
-                    };
-                    // 判断验证结果标识符
-                    let mark = true;
+                    let currentRules = rule.rules;
+                    
                     // 循环验证规则
-                    for( let key in rules){
-                        if(!(validater.rules[key](value))){
-                            result.status = false;
-                            result.message = rules[key];
-                            mark = false;
-                        }
-                        if(!mark){
-                        	// 自动更新错误提示
-	                    	if(item.error && Object.prototype.toString.call(item.error) == '[object Object]'){
-	                    		// 更新错误提示文本到dom
-	                    		if(item.error.message){
-	                    			let errorElem = document.querySelector(item.error.message.id);
-		                    		if(errorElem){
-		                    			errorElem.innerText = result.message;
-		                    		}
-		                    		if(errorElem && item.error.message.styles){
-		                    			errorElem.style.cssText = item.error.message.styles;
-		                    		}
-	                    		}
-	                    		// 更新input框样式
-	                    		if(item.error.input){
-	                    			let inputElem = document.querySelector(item.error.input.id);
-		                    		if(inputElem){
-		                    			inputElem.innerText = result.message;
-		                    		}
-		                    		if(inputElem && item.error.input.styles){
-		                    			inputElem.style.cssText = item.error.input.styles;
-		                    		}
-	                    		}
-	                    		
-	                    	}
-                        	if(typeof fn === 'function'){
-	                        	fn(result);
-	                        }
-	                        j(result);
+                    for( let key in currentRules){
+
+                    	// 当前字段如果没有设置required规则，只有在值存在的情况再验证
+	                    if(!currentRules["required"] && value && !validater.rules[key](value)){
+	                        result.status = false;
+	                        result.message = currentRules[key];
+	                        mark = false;
+	                        break;
+	                    }
+
+	                    // 当前验证规则是required，直接验证
+	                    if(key == "required" && !validater.rules[key](value)){
+	                        result.status = false;
+	                        result.message = currentRules[key];
+	                        mark = false;
+	                        break;
 	                    }
                     }
+
+                 	if(!mark){
+                    	// 自动更新错误提示
+                    	if(rule.error && Object.prototype.toString.call(rule.error) == '[object Object]'){
+                    		// 更新错误提示文本到dom
+                    		if(rule.error.message){
+                    			let errorElem = document.querySelector(rule.error.message.id);
+	                    		if(errorElem){
+	                    			errorElem.innerText = result.message;
+	                    		}
+	                    		if(errorElem && rule.error.message.styles){
+	                    			errorElem.style.cssText = rule.error.message.styles;
+	                    		}
+                    		}
+                    		// 更新input框样式
+                    		if(rule.error.input){
+                    			let inputElem = document.querySelector(rule.error.input.id);
+	                    		if(inputElem){
+	                    			inputElem.innerText = result.message;
+	                    		}
+	                    		if(inputElem && rule.error.input.styles){
+	                    			inputElem.style.cssText = rule.error.input.styles;
+	                    		}
+                    		}
+                    		
+                    	}
+                    }
+                    if(typeof fn === 'function'){
+                    	fn(result);
+                    }
+                    j(result);
                 }
             })
         })
@@ -172,65 +191,89 @@ class validater{
      * @param fn:function 回调函数
     */
     static tests(rules,fn){
+
         return new Promise((j,r)=>{
-            rules.forEach(item=>{
+
+        	// 判断验证结果标识符
+            let mark = true;
+
+            // 验证返回信息
+            let result = {
+            	status: true,
+            	name: '',
+            	message: '验证通过'
+            };
+
+        	for(let i = 0; i < rules.length; i ++){
+
+            	// 当前数据
+            	let item = rules[i];
+
                 // 获取验证目标字段值
                 let value = item.value;
+
                 // 获取验证目标配置的规则
-                let rules = item.rules;
-                // 验证返回信息
-                let result = {
-                	status: true,
-                	name: item.name || '',
-                	message: ''
-                };
-                // 判断验证结果标识符
-                let mark = true;
-                for( let key in rules){
-                    if(!(validater.rules[key](value))){
+                let currentRules = item.rules;
+
+                // 赋值当前验证字段到返回对象
+                result.name = item.name;
+               
+                for( let key in currentRules){
+                	
+                    // 当前字段如果没有设置required规则，只有在值存在的情况再验证
+                    if(!currentRules["required"] && value && !validater.rules[key](value)){
                         result.status = false;
-                        result.message = rules[key];
+                        result.message = currentRules[key];
                         mark = false;
+                        break;
                     }
-                    if(!mark){
-                    	// 自动更新错误提示
-                    	if(item.error && Object.prototype.toString.call(item.error) == '[object Object]'){
-                    		// 更新错误提示文本到dom
-                    		if(item.error.message){
-                    			let errorElem = document.querySelector(item.error.message.id);
-	                    		if(errorElem){
-	                    			errorElem.innerText = result.message;
-	                    		}
-	                    		if(errorElem && item.error.message.styles){
-	                    			errorElem.style.cssText = item.error.message.styles;
-	                    		}
-                    		}
-                    		// 更新input框样式
-                    		if(item.error.input){
-                    			let inputElem = document.querySelector(item.error.input.id);
-	                    		if(inputElem){
-	                    			inputElem.innerText = result.message;
-	                    		}
-	                    		if(inputElem && item.error.input.styles){
-	                    			inputElem.style.cssText = item.error.input.styles;
-	                    		}
-                    		}
-                    		
-                    	}
-                    	if(typeof fn === 'function'){
-                        	fn(result);
-                        }
-                        j(result);
+
+                    // 当前验证规则是required，直接验证
+                    if(key == "required" && !validater.rules[key](value)){
+                        result.status = false;
+                        result.message = currentRules[key];
+                        mark = false;
+                        break;
                     }
                 }
-            })
+                if(!mark){
+
+                	// 自动更新错误提示
+		        	if(item.error && Object.prototype.toString.call(item.error) == '[object Object]'){
+		        		// 更新错误提示文本到dom
+		        		if(item.error.message){
+		        			let errorElem = document.querySelector(item.error.message.id);
+		            		if(errorElem){
+		            			errorElem.innerText = result.message;
+		            		}
+		            		if(errorElem && item.error.message.styles){
+		            			errorElem.style.cssText = item.error.message.styles;
+		            		}
+		        		}
+		        		// 更新input框样式
+		        		if(item.error.input){
+		        			let inputElem = document.querySelector(item.error.input.id);
+		            		if(inputElem){
+		            			inputElem.innerText = result.message;
+		            		}
+		            		if(inputElem && item.error.input.styles){
+		            			inputElem.style.cssText = item.error.input.styles;
+		            		}
+		        		}
+		        		
+		        	}
+                	break;
+                }
+            }
+
+	        if(typeof fn === 'function'){
+            	fn(result);
+            }
+            j(result);
         })
     }
 
-    // 当input输入报错后，开启重新输入即恢复默认样式
-    static onReset(){
-
-    }
+   
 
     // 验证单字段参数格式是否正确
     static #check(rule){
@@ -268,9 +311,6 @@ class validater{
 }
 
 export default validater;
-
-
-
 
 
 
