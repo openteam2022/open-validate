@@ -41,7 +41,6 @@ export default [
                     {find:'@',replacement:'./src'}
                 ]
             }),
-            terser(),
             serve({ // 开启本地服务
                 open: true,
                 openPage: '/index.html', // 打开的页面

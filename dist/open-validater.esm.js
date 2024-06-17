@@ -1,2 +1,367 @@
-var e,t,r;function n(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,u(n.key),n)}}function s(e,t,r){return(t=u(t))in e?Object.defineProperty(e,t,{value:r,enumerable:!0,configurable:!0,writable:!0}):e[t]=r,e}function a(e,t){var r=Object.keys(e);if(Object.getOwnPropertySymbols){var n=Object.getOwnPropertySymbols(e);t&&(n=n.filter((function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable}))),r.push.apply(r,n)}return r}function o(e){for(var t=1;t<arguments.length;t++){var r=null!=arguments[t]?arguments[t]:{};t%2?a(Object(r),!0).forEach((function(t){s(e,t,r[t])})):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(r)):a(Object(r)).forEach((function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(r,t))}))}return e}function u(e){var t=function(e,t){if("object"!=typeof e||!e)return e;var r=e[Symbol.toPrimitive];if(void 0!==r){var n=r.call(e,t||"default");if("object"!=typeof n)return n;throw new TypeError("@@toPrimitive must return a primitive value.")}return("string"===t?String:Number)(e)}(e,"string");return"symbol"==typeof t?t:t+""}(e=self.document)&&!e.getElementById("livereloadscript")&&((t=e.createElement("script")).async=1,t.src="//"+(self.location.host||"localhost").split(":")[0]+":35729/livereload.js?snipver=1",t.id="livereloadscript",e.getElementsByTagName("head")[0].appendChild(t));var i=function(){function e(){!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,e)}return function(e,t,r){return t&&n(e.prototype,t),r&&n(e,r),Object.defineProperty(e,"prototype",{writable:!1}),e}(e,null,[{key:"addRule",value:function(t){if("string"!=typeof t.name||"function"!=typeof t.handle)return!1;var r={};r[t.name]=t.handle,e.rules=o(o({},e.rules),r)}},{key:"test",value:function(t,r){return new Promise((function(n,s){c.call(e,t).then((function(s){if(s.status){var a=!0,o={status:!0,name:t.name||"",message:"验证通过"},u=t.value,i=t.rules;for(var l in i){if(!i.required&&u&&!e.rules[l](u)){o.status=!1,o.message=i[l],a=!1;break}if("required"==l&&!e.rules[l](u)){o.status=!1,o.message=i[l],a=!1;break}}if(!a&&t.error&&"[object Object]"==Object.prototype.toString.call(t.error)){if(t.error.message){var c=document.querySelector(t.error.message.id);c&&(c.innerText=o.message),c&&t.error.message.styles&&(c.style.cssText=t.error.message.styles)}if(t.error.input){var f=document.querySelector(t.error.input.id);f&&(f.innerText=o.message),f&&t.error.input.styles&&(f.style.cssText=t.error.input.styles)}}"function"==typeof r&&r(o),n(o)}}))}))}},{key:"tests",value:function(t,r){return new Promise((function(n,s){for(var a=!0,o={status:!0,name:"",message:"验证通过"},u=0;u<t.length;u++){var i=t[u],l=i.value,c=i.rules;for(var f in o.name=i.name,c){if(!c.required&&l&&!e.rules[f](l)){o.status=!1,o.message=c[f],a=!1;break}if("required"==f&&!e.rules[f](l)){o.status=!1,o.message=c[f],a=!1;break}}if(!a){if(i.error&&"[object Object]"==Object.prototype.toString.call(i.error)){if(i.error.message){var p=document.querySelector(i.error.message.id);p&&(p.innerText=o.message),p&&i.error.message.styles&&(p.style.cssText=i.error.message.styles)}if(i.error.input){var m=document.querySelector(i.error.input.id);m&&(m.innerText=o.message),m&&i.error.input.styles&&(m.style.cssText=i.error.input.styles)}}break}}"function"==typeof r&&r(o),n(o)}))}}])}();function l(e){return!!e}function c(e){return new Promise((function(t,n){var s=f.call(r,e,"验证规则参数必须是object,当前参数类型不正确");s.status||t(s),"string"==typeof e.name&&f.call(r,e.rules).status||t({result:!1,message:"验证规则对象必须包含name属性和rules属性"}),t({status:!0})}))}function f(e,t,r){var n={status:!0,message:r};return"[object Object]"==Object.prototype.toString.call(e)||(n.status=!1),n}r=i,s(i,"name","validater"),s(i,"author","kaijian"),s(i,"version","v1.0.0"),s(i,"description","基于js开发的表达验证插件"),s(i,"date","2024-06-12"),s(i,"rules",{required:function(e){var t=""==e||null==e||null==e;return!l.call(r,t)},phone:function(e){return l.call(r,/^1(3[0-9]|4[01456879]|5[0-35-9]|6[2567]|7[0-8]|8[0-9]|9[0-35-9])\d{8}$/.test(e))},http:function(e){return l.call(r,/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\*\+,;=.]+$/.test(e))},email:function(e){return l.call(r,/^\w+([  -+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/g.test(e))},string:function(e){return l.call(r,/^[\u4e00-\u9fa5]*$/.test(e))},strEng:function(e){return l.call(r,/^[\u4e00-\u9fa5a-zA-Z]*$/.test(e))},strEngInt:function(e){return l.call(r,/^[\u4e00-\u9fa5a-zA-Z0-9]*$/.test(e))},engAndInt:function(e){return l.call(r,/^[a-zA-Z0-9]*$/.test(e))},engInt:function(e){return l.call(r,/^[a-zA-Z]([-_a-zA-Z0-9]{5,19})+$/.test(e))},tel:function(e){return l.call(r,/^\d{3}-\d{8}|\d{4}-\d{7,8}/.test(e))},symbol:function(e){return l.call(r,/[`~!@#$^&*()《》=|{}':;',\\\[\]\.<>\/?~！@#￥……&*（）——|{}【】'；：""'。，、？\s]/g.test(e))},password:function(e){return l.call(r,/^(?=.*\d)(?=.*[a-zA-Z])(?=.*[~!@#$%^&*])[\da-zA-Z~!@#$%^&*]{8,16}$/.test(e))},text:function(e){return l.call(r,/^[\u4e00-\u9fa5a-zA-Z0-9,.!?:，。？！]*$/.test(e))},int:function(e){return l.call(r,/^[0-9]*$/g.test(e))}});export{i as default};
+/* open-validater v1.0.0 */
+(function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
+function _classCallCheck(a, n) {
+  if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
+}
+function _defineProperties(e, r) {
+  for (var t = 0; t < r.length; t++) {
+    var o = r[t];
+    o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o);
+  }
+}
+function _createClass(e, r, t) {
+  return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", {
+    writable: !1
+  }), e;
+}
+function _defineProperty(e, r, t) {
+  return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+    value: t,
+    enumerable: !0,
+    configurable: !0,
+    writable: !0
+  }) : e[r] = t, e;
+}
+function ownKeys(e, r) {
+  var t = Object.keys(e);
+  if (Object.getOwnPropertySymbols) {
+    var o = Object.getOwnPropertySymbols(e);
+    r && (o = o.filter(function (r) {
+      return Object.getOwnPropertyDescriptor(e, r).enumerable;
+    })), t.push.apply(t, o);
+  }
+  return t;
+}
+function _objectSpread2(e) {
+  for (var r = 1; r < arguments.length; r++) {
+    var t = null != arguments[r] ? arguments[r] : {};
+    r % 2 ? ownKeys(Object(t), !0).forEach(function (r) {
+      _defineProperty(e, r, t[r]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) {
+      Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
+    });
+  }
+  return e;
+}
+function _toPrimitive(t, r) {
+  if ("object" != typeof t || !t) return t;
+  var e = t[Symbol.toPrimitive];
+  if (void 0 !== e) {
+    var i = e.call(t, r || "default");
+    if ("object" != typeof i) return i;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return ("string" === r ? String : Number)(t);
+}
+function _toPropertyKey(t) {
+  var i = _toPrimitive(t, "string");
+  return "symbol" == typeof i ? i : i + "";
+}
+
+var _validater;
+/**
+ * 表单验证插件
+*/
+var validater = /*#__PURE__*/function () {
+  function validater() {
+    _classCallCheck(this, validater);
+  }
+  return _createClass(validater, null, [{
+    key: "addRule",
+    value:
+    // 添加自定义规则
+    function addRule(rule) {
+      // 判断是否有规则名和规则入口函数
+      if (typeof rule.name !== 'string' || typeof rule.handle !== 'function') return false;
+      // 定义当前路由对象
+      var itemRule = {};
+      // 添加路由信息到路由对象
+      itemRule[rule.name] = rule.handle;
+      // 整合路由规则到内置规则中
+      validater.rules = _objectSpread2(_objectSpread2({}, validater.rules), itemRule);
+    }
+
+    /**
+     * 验证单个字段
+     * @param rule: 单个验证对象
+     * @param fn:function 回调函数
+    */
+  }, {
+    key: "test",
+    value: function test(rule, fn) {
+      return new Promise(function (j, r) {
+        // 验证格式是否正确
+        _check.call(validater, rule).then(function (res) {
+          if (res.status) {
+            // 判断验证结果标识符
+            var mark = true;
+
+            // 验证返回信息
+            var result = {
+              status: true,
+              name: rule.name || '',
+              message: '验证通过'
+            };
+
+            // 获取验证目标字段值
+            var value = rule.value;
+
+            // 获取验证目标配置的规则
+            var currentRules = rule.rules;
+
+            // 循环验证规则
+            for (var key in currentRules) {
+              // 当前字段如果没有设置required规则，只有在值存在的情况再验证
+              if (!currentRules["required"] && value && !validater.rules[key](value)) {
+                result.status = false;
+                result.message = currentRules[key];
+                mark = false;
+                break;
+              }
+
+              // 当前验证规则是required，直接验证
+              if (key == "required" && !validater.rules[key](value)) {
+                result.status = false;
+                result.message = currentRules[key];
+                mark = false;
+                break;
+              }
+            }
+            if (!mark) {
+              // 自动更新错误提示
+              if (rule.error && Object.prototype.toString.call(rule.error) == '[object Object]') {
+                // 更新错误提示文本到dom
+                if (rule.error.message) {
+                  var errorElem = document.querySelector(rule.error.message.id);
+                  if (errorElem) {
+                    errorElem.innerText = result.message;
+                  }
+                  if (errorElem && rule.error.message.styles) {
+                    errorElem.style.cssText = rule.error.message.styles;
+                  }
+                }
+                // 更新input框样式
+                if (rule.error.input) {
+                  var inputElem = document.querySelector(rule.error.input.id);
+                  if (inputElem) {
+                    inputElem.innerText = result.message;
+                  }
+                  if (inputElem && rule.error.input.styles) {
+                    inputElem.style.cssText = rule.error.input.styles;
+                  }
+                }
+              }
+            }
+            if (typeof fn === 'function') {
+              fn(result);
+            }
+            j(result);
+          }
+        });
+      });
+    }
+
+    /**
+     * 验证多个字段
+     * @param rule: array批量验证数组
+     * @param fn:function 回调函数
+    */
+  }, {
+    key: "tests",
+    value: function tests(rules, fn) {
+      return new Promise(function (j, r) {
+        // 判断验证结果标识符
+        var mark = true;
+
+        // 验证返回信息
+        var result = {
+          status: true,
+          name: '',
+          message: '验证通过'
+        };
+        for (var i = 0; i < rules.length; i++) {
+          // 当前数据
+          var item = rules[i];
+
+          // 获取验证目标字段值
+          var value = item.value;
+
+          // 获取验证目标配置的规则
+          var currentRules = item.rules;
+
+          // 赋值当前验证字段到返回对象
+          result.name = item.name;
+          for (var key in currentRules) {
+            // 当前字段如果没有设置required规则，只有在值存在的情况再验证
+            if (!currentRules["required"] && value && !validater.rules[key](value)) {
+              result.status = false;
+              result.message = currentRules[key];
+              mark = false;
+              break;
+            }
+
+            // 当前验证规则是required，直接验证
+            if (key == "required" && !validater.rules[key](value)) {
+              result.status = false;
+              result.message = currentRules[key];
+              mark = false;
+              break;
+            }
+          }
+          if (!mark) {
+            // 自动更新错误提示
+            if (item.error && Object.prototype.toString.call(item.error) == '[object Object]') {
+              // 更新错误提示文本到dom
+              if (item.error.message) {
+                var errorElem = document.querySelector(item.error.message.id);
+                if (errorElem) {
+                  errorElem.innerText = result.message;
+                }
+                if (errorElem && item.error.message.styles) {
+                  errorElem.style.cssText = item.error.message.styles;
+                }
+              }
+              // 更新input框样式
+              if (item.error.input) {
+                var inputElem = document.querySelector(item.error.input.id);
+                if (inputElem) {
+                  inputElem.innerText = result.message;
+                }
+                if (inputElem && item.error.input.styles) {
+                  inputElem.style.cssText = item.error.input.styles;
+                }
+              }
+            }
+            break;
+          }
+        }
+        if (typeof fn === 'function') {
+          fn(result);
+        }
+        j(result);
+      });
+    }
+
+    // 验证单字段参数格式是否正确
+  }]);
+}();
+_validater = validater;
+// 验证结果转换
+function _isTure(condition) {
+  return !condition ? false : true;
+}
+function _check(rule) {
+  return new Promise(function (j, r) {
+    // 判断rule参数是不是对象格式
+    var result = _checkObject.call(_validater, rule, '验证规则参数必须是object,当前参数类型不正确');
+    if (!result.status) {
+      j(result);
+    }
+    // 判断是否含有name和rules
+    if (typeof rule.name !== 'string' || !_checkObject.call(_validater, rule.rules).status) {
+      j({
+        result: false,
+        message: '验证规则对象必须包含name属性和rules属性'
+      });
+    }
+    j({
+      status: true
+    });
+  });
+}
+// 检测参数是否是对象
+function _checkObject(rule, warn, message) {
+  // 判断类型
+  var check = Object.prototype.toString.call(rule) == '[object Object]';
+  // 返回结果
+  var result = {
+    status: true,
+    message: message
+  };
+  if (!check) result.status = false;
+  return result;
+}
+// 插件描述
+_defineProperty(validater, "name", "validater");
+_defineProperty(validater, "author", "kaijian");
+_defineProperty(validater, "version", "v1.0.0");
+_defineProperty(validater, "description", "基于js开发的表达验证插件");
+_defineProperty(validater, "date", "2024-06-12");
+// 内置验证规则
+_defineProperty(validater, "rules", {
+  // 检查值是否为空
+  required: function required(value) {
+    var result = value == '' || value == undefined || value == null;
+    return !_isTure.call(_validater, result);
+  },
+  // 检查值是否是手机号
+  phone: function phone(value) {
+    var checkValue = /^1(3[0-9]|4[01456879]|5[0-35-9]|6[2567]|7[0-8]|8[0-9]|9[0-35-9])\d{8}$/;
+    return _isTure.call(_validater, checkValue.test(value));
+  },
+  // 检查值是否是网址
+  http: function http(value) {
+    var checkValue = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\*\+,;=.]+$/;
+    return _isTure.call(_validater, checkValue.test(value));
+  },
+  // 检查值是否是邮箱
+  email: function email(value) {
+    var checkValue = /^\w+([  -+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/g;
+    return _isTure.call(_validater, checkValue.test(value));
+  },
+  //检查值是否是中文
+  string: function string(value) {
+    var checkValue = /^[\u4e00-\u9fa5]*$/;
+    return _isTure.call(_validater, checkValue.test(value));
+  },
+  //检查字符串是否是中文或英文或中文+英文,没有值则不判断
+  strEng: function strEng(value) {
+    var checkValue = /^[\u4e00-\u9fa5a-zA-Z]*$/;
+    return _isTure.call(_validater, checkValue.test(value));
+  },
+  //检查字符串是否是中文或英文或中文+英文+数字，没有值则不判断
+  strEngInt: function strEngInt(value) {
+    var checkValue = /^[\u4e00-\u9fa5a-zA-Z0-9]*$/;
+    return _isTure.call(_validater, checkValue.test(value));
+  },
+  //检查字符串是否是英文或数字
+  engAndInt: function engAndInt(value) {
+    var checkValue = /^[a-zA-Z0-9]*$/;
+    return _isTure.call(_validater, checkValue.test(value));
+  },
+  //检查字符串是否是英文,数字
+  engInt: function engInt(value) {
+    var checkValue = /^[a-zA-Z]([-_a-zA-Z0-9]{5,19})+$/; //6至20位，以字母开头，字母，数字，减号，下划线
+    return _isTure.call(_validater, checkValue.test(value));
+  },
+  //检查电话号码座机
+  tel: function tel(value) {
+    var checkValue = /^\d{3}-\d{8}|\d{4}-\d{7,8}/;
+    return _isTure.call(_validater, checkValue.test(value));
+  },
+  //检查字符串是否有特殊符号（是返回false，否返回true）
+  symbol: function symbol(value) {
+    var checkValue = /[`~!@#$^&*()《》=|{}':;',\\\[\]\.<>\/?~！@#￥……&*（）——|{}【】'；：""'。，、？\s]/g;
+    return _isTure.call(_validater, checkValue.test(value));
+  },
+  //检查密码是否格式正确(8-16位+字母+特殊符号+数字)
+  password: function password(value) {
+    var checkValue = /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[~!@#$%^&*])[\da-zA-Z~!@#$%^&*]{8,16}$/;
+    return _isTure.call(_validater, checkValue.test(value));
+  },
+  // 检查文本
+  text: function text(value) {
+    var checkValue = /^[\u4e00-\u9fa5a-zA-Z0-9,.!?:，。？！]*$/;
+    return _isTure.call(_validater, checkValue.test(value));
+  },
+  // 检查整数格式
+  "int": function int(value) {
+    var checkValue = /^[0-9]*$/g;
+    return _isTure.call(_validater, checkValue.test(value));
+  }
+});
+
+// src/main.js
+
+export { validater as default };
 //# sourceMappingURL=open-validater.esm.js.map
