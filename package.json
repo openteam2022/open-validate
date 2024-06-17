@@ -1,0 +1,29 @@
+{
+  "name": "open-validate",
+  "version": "1.0.0",
+  "description": "一个基于javascript实现的表单验证函数库",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "rollup -c -w",
+    "build": "rollup --config",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/openteam2022/open-validate.git"
+  },
+  "author": "kaijian",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/openteam2022/open-validate/issues"
+  },
+  "homepage": "https://github.com/openteam2022/open-validate#readme",
+  "devDependencies": {
+    "@babel/core": "^7.24.7",
+    "@rollup/plugin-alias": "^5.1.0",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-terser": "^0.4.4",
+    "rollup-plugin-livereload": "^2.0.5",
+    "rollup-plugin-serve": "^1.1.1"
+  }
+}

@@ -1,0 +1,3 @@
+# 打包忽略的目录
+node_modules/
+index.html
