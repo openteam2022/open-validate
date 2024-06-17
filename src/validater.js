@@ -6,7 +6,7 @@ class validater{
 	// 插件描述
 	static name = "validater";
 	static author = "kaijian";
-	static version = "v2.2.0";
+	static version = "v1.0.0";
 	static description = "基于js开发的表达验证插件";
 	static date = "2024-06-12";
 
