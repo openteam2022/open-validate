@@ -2,6 +2,8 @@
 
 表单验证工具函数库
 
+[在线使用文档](http://validater.openteam.site)
+
 ## 安装
 
 ```html
