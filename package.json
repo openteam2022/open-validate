@@ -1,5 +1,5 @@
 {
-  "name": "open-validate",
+  "name": "open-validater",
   "version": "1.0.0",
   "description": "一个基于javascript实现的表单验证函数库",
   "main": "dist/index.js",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/openteam2022/open-validate.git"
+    "url": "git+https://github.com/openteam2022/open-validater.git"
   },
   "author": "kaijian",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/openteam2022/open-validate/issues"
+    "url": "https://github.com/openteam2022/open-validater/issues"
   },
-  "homepage": "https://github.com/openteam2022/open-validate#readme",
+  "homepage": "https://github.com/openteam2022/open-validater#readme",
   "devDependencies": {
     "@babel/core": "^7.24.7",
     "@rollup/plugin-alias": "^5.1.0",

@@ -7,6 +7,107 @@
 	<script src="./dist/open-validater.bundle.js"></script>
 </head>
 <body>
-	
+	<form id="form">
+		<div>
+			<input id="name_input" type="text" name="name" placeholder="输入姓名">
+			<p id="error_name"></p>
+		</div>
+		<div>
+			<input id="age_input" type="text" name="age" placeholder="输入年龄">
+			<p id="error_age"></p>
+		</div>
+		<div>
+			<input type="text" name="sex" placeholder="输入性别">
+			<p id="error_sex"></p>
+		</div>
+		<div>
+			<input type="text" name="adress" placeholder="输入地址">
+			<p id="error_adress"></p>
+		</div>
+		<div>
+			<input type="submit" placeholder="提交">
+		</div>
+	</form>
+
+	<style>
+		.error_message{
+			font-size: 14px;
+			color: red;
+			margin: 0;
+			line-height: 1.6;
+		}
+		.name_input{
+			border: 1px solid red;
+		}
+	</style>
+
+	<script>
+		
+		let form = document.querySelector('#form');
+
+		form.addEventListener('submit',function(e){
+
+			// 阻止默认提交事件
+			e.preventDefault();
+
+			let formData = new FormData(form);
+
+			let data = {};
+
+			for( let [name,value] of formData.entries()){
+
+				data[name] = value;
+			}
+
+
+			let rules = [
+				{
+					name: 'name',
+					value: data.name,
+					rules: {
+						required: '姓名不能为空'
+					},
+					error: {
+						message: {
+							id: '#error_name',
+							class: 'error_message',
+						},
+						input: {
+							id: '#name_input',
+							class: 'name_input'
+						}
+					}
+				},
+				{
+					name: 'age',
+					value: data.age,
+					rules: {
+						required: '年龄不能为空',
+						int: "年龄不是数字类型"
+					},
+					error: {
+						message: {
+							id: '#error_age',
+							class: 'error_message',
+						},
+						input: {
+							id: '#age_input',
+							class: 'name_input'
+						}
+					}
+				},
+			]
+
+			validater.tests(rules).then(res=>{
+				console.log(res)
+			})
+
+			console.log(data)
+
+			console.log(validater.rules.required("haha"))
+		})
+
+		
+	</script>
 </body>
 </html>

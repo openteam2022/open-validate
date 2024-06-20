@@ -41,13 +41,13 @@ export default [
                     {find:'@',replacement:'./src'}
                 ]
             }),
-            serve({ // 开启本地服务
-                open: true,
-                openPage: '/index.html', // 打开的页面
-                port: 3333,
-                contentBase: ''
-            }),
-            livereload('dist'),
+            // serve({ // 开启本地服务
+            //     open: true,
+            //     openPage: '/index.html', // 打开的页面
+            //     port: 3333,
+            //     contentBase: ''
+            // }),
+            // livereload('dist'),
         ]
     },
     // js压缩打包

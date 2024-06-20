@@ -155,26 +155,56 @@ class validater{
                     	if(rule.error && Object.prototype.toString.call(rule.error) == '[object Object]'){
                     		// 更新错误提示文本到dom
                     		if(rule.error.message){
+                    			
                     			let errorElem = document.querySelector(rule.error.message.id);
+
 	                    		if(errorElem){
 	                    			errorElem.innerText = result.message;
 	                    		}
-	                    		if(errorElem && rule.error.message.styles){
-	                    			errorElem.style.cssText = rule.error.message.styles;
-	                    		}
+
+	                    		if(errorElem && item.error.message.class){
+			            			errorElem.classList.add(item.error.message.class);
+			            		}
                     		}
+
                     		// 更新input框样式
-                    		if(rule.error.input){
-                    			let inputElem = document.querySelector(rule.error.input.id);
-	                    		if(inputElem){
-	                    			inputElem.innerText = result.message;
-	                    		}
-	                    		if(inputElem && rule.error.input.styles){
-	                    			inputElem.style.cssText = rule.error.input.styles;
-	                    		}
-                    		}
-                    		
+			        		if(item.error.input){
+			        			let inputElem = document.querySelector(item.error.input.id);
+
+			            		if(inputElem && item.error.input.class){
+			            			inputElem.classList.add(item.error.input.class);
+			            		}
+
+			            		// 输入框聚焦
+			            		inputElem.focus();
+			        		}
                     	}
+                    }else{
+
+                    	// 清空错误提示信息
+		        		if(item.error.message){
+
+		        			let errorElem = document.querySelector(item.error.message.id);
+
+		            		if(errorElem){
+		            			errorElem.innerText = '';
+		            		}
+
+		            		if(errorElem && errorElem.classList.contains(item.error.message.class)){
+
+		            			errorElem.classList.remove(item.error.message.class);
+		            		}
+		        		}
+		        		
+		        		// 清空input框样式
+		        		if(item.error.input){
+		        			let inputElem = document.querySelector(item.error.input.id);
+
+		            		if(inputElem && inputElem.classList.contains(item.error.input.class)){
+		            			
+		            			inputElem.classList.remove(item.error.input.class);
+		            		}
+		        		}
                     }
                     if(typeof fn === 'function'){
                     	fn(result);
@@ -240,29 +270,57 @@ class validater{
 
                 	// 自动更新错误提示
 		        	if(item.error && Object.prototype.toString.call(item.error) == '[object Object]'){
+		        		
 		        		// 更新错误提示文本到dom
 		        		if(item.error.message){
 		        			let errorElem = document.querySelector(item.error.message.id);
+
 		            		if(errorElem){
 		            			errorElem.innerText = result.message;
 		            		}
-		            		if(errorElem && item.error.message.styles){
-		            			errorElem.style.cssText = item.error.message.styles;
+
+		            		if(errorElem && item.error.message.class){
+		            			errorElem.classList.add(item.error.message.class);
 		            		}
 		        		}
 		        		// 更新input框样式
 		        		if(item.error.input){
 		        			let inputElem = document.querySelector(item.error.input.id);
-		            		if(inputElem){
-		            			inputElem.innerText = result.message;
+
+		            		if(inputElem && item.error.input.class){
+		            			inputElem.classList.add(item.error.input.class);
 		            		}
-		            		if(inputElem && item.error.input.styles){
-		            			inputElem.style.cssText = item.error.input.styles;
-		            		}
+
+		            		// 输入框聚焦
+		            		inputElem.focus();
 		        		}
-		        		
 		        	}
                 	break;
+                }else{
+                	// 清空错误提示信息
+	        		if(item.error.message){
+
+	        			let errorElem = document.querySelector(item.error.message.id);
+
+	            		if(errorElem){
+	            			errorElem.innerText = '';
+	            		}
+
+	            		if(errorElem && errorElem.classList.contains(item.error.message.class)){
+
+	            			errorElem.classList.remove(item.error.message.class);
+	            		}
+	        		}
+
+	        		// 清空input框样式
+	        		if(item.error.input){
+	        			let inputElem = document.querySelector(item.error.input.id);
+
+	            		if(inputElem && inputElem.classList.contains(item.error.input.class)){
+	            			
+	            			inputElem.classList.remove(item.error.input.class);
+	            		}
+	        		}
                 }
             }
 
