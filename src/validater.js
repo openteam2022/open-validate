@@ -141,8 +141,16 @@ class validater{
 	                        break;
 	                    }
 
-	                    // 当前验证规则是required，直接验证
-	                    if(key == "required" && !validater.rules[key](value)){
+	                    // 当前字段如果有设置required规则，直接验证
+	                    if(currentRules["required"] && !validater.rules[key](value)){
+	                        result.status = false;
+	                        result.message = currentRules[key];
+	                        mark = false;
+	                        break;
+	                    }
+
+	                    // 默认有值就验证
+	                    if(value && !validater.rules[key](value)){
 	                        result.status = false;
 	                        result.message = currentRules[key];
 	                        mark = false;
@@ -155,24 +163,24 @@ class validater{
                     	if(rule.error && Object.prototype.toString.call(rule.error) == '[object Object]'){
                     		// 更新错误提示文本到dom
                     		if(rule.error.message){
-                    			
+
                     			let errorElem = document.querySelector(rule.error.message.id);
 
 	                    		if(errorElem){
 	                    			errorElem.innerText = result.message;
 	                    		}
 
-	                    		if(errorElem && item.error.message.class){
-			            			errorElem.classList.add(item.error.message.class);
+	                    		if(errorElem && rule.error.message.class){
+			            			errorElem.classList.add(rule.error.message.class);
 			            		}
                     		}
 
                     		// 更新input框样式
-			        		if(item.error.input){
-			        			let inputElem = document.querySelector(item.error.input.id);
+			        		if(rule.error.input){
+			        			let inputElem = document.querySelector(rule.error.input.id);
 
-			            		if(inputElem && item.error.input.class){
-			            			inputElem.classList.add(item.error.input.class);
+			            		if(inputElem && rule.error.input.class){
+			            			inputElem.classList.add(rule.error.input.class);
 			            		}
 
 			            		// 输入框聚焦
@@ -182,27 +190,27 @@ class validater{
                     }else{
 
                     	// 清空错误提示信息
-		        		if(item.error.message){
+		        		if(rule.error.message){
 
-		        			let errorElem = document.querySelector(item.error.message.id);
+		        			let errorElem = document.querySelector(rule.error.message.id);
 
 		            		if(errorElem){
 		            			errorElem.innerText = '';
 		            		}
 
-		            		if(errorElem && errorElem.classList.contains(item.error.message.class)){
+		            		if(errorElem && errorElem.classList.contains(rule.error.message.class)){
 
-		            			errorElem.classList.remove(item.error.message.class);
+		            			errorElem.classList.remove(rule.error.message.class);
 		            		}
 		        		}
 		        		
 		        		// 清空input框样式
-		        		if(item.error.input){
-		        			let inputElem = document.querySelector(item.error.input.id);
+		        		if(rule.error.input){
+		        			let inputElem = document.querySelector(rule.error.input.id);
 
-		            		if(inputElem && inputElem.classList.contains(item.error.input.class)){
+		            		if(inputElem && inputElem.classList.contains(rule.error.input.class)){
 		            			
-		            			inputElem.classList.remove(item.error.input.class);
+		            			inputElem.classList.remove(rule.error.input.class);
 		            		}
 		        		}
                     }
@@ -258,8 +266,16 @@ class validater{
                         break;
                     }
 
-                    // 当前验证规则是required，直接验证
-                    if(key == "required" && !validater.rules[key](value)){
+                     // 当前字段如果有设置required规则，直接再验证
+                    if(currentRules["required"] && !validater.rules[key](value)){
+                        result.status = false;
+                        result.message = currentRules[key];
+                        mark = false;
+                        break;
+                    }
+
+                    // 默认有值就验证
+                    if(value && !validater.rules[key](value)){
                         result.status = false;
                         result.message = currentRules[key];
                         mark = false;

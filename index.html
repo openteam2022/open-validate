@@ -65,7 +65,8 @@
 					name: 'name',
 					value: data.name,
 					rules: {
-						required: '姓名不能为空'
+						int: "格式不正确",
+						phone: "不是手机格式"
 					},
 					error: {
 						message: {
@@ -104,7 +105,7 @@
 
 			console.log(data)
 
-			console.log(validater.rules.required("haha"))
+			console.log(validater.rules.int("haha"))
 		})
 
 		

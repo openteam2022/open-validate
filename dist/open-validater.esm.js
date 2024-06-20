@@ -118,8 +118,16 @@ var validater = /*#__PURE__*/function () {
                 break;
               }
 
-              // 当前验证规则是required，直接验证
-              if (key == "required" && !validater.rules[key](value)) {
+              // 当前字段如果有设置required规则，直接验证
+              if (currentRules["required"] && !validater.rules[key](value)) {
+                result.status = false;
+                result.message = currentRules[key];
+                mark = false;
+                break;
+              }
+
+              // 默认有值就验证
+              if (value && !validater.rules[key](value)) {
                 result.status = false;
                 result.message = currentRules[key];
                 mark = false;
@@ -135,16 +143,16 @@ var validater = /*#__PURE__*/function () {
                   if (errorElem) {
                     errorElem.innerText = result.message;
                   }
-                  if (errorElem && item.error.message["class"]) {
-                    errorElem.classList.add(item.error.message["class"]);
+                  if (errorElem && rule.error.message["class"]) {
+                    errorElem.classList.add(rule.error.message["class"]);
                   }
                 }
 
                 // 更新input框样式
-                if (item.error.input) {
-                  var inputElem = document.querySelector(item.error.input.id);
-                  if (inputElem && item.error.input["class"]) {
-                    inputElem.classList.add(item.error.input["class"]);
+                if (rule.error.input) {
+                  var inputElem = document.querySelector(rule.error.input.id);
+                  if (inputElem && rule.error.input["class"]) {
+                    inputElem.classList.add(rule.error.input["class"]);
                   }
 
                   // 输入框聚焦
@@ -153,21 +161,21 @@ var validater = /*#__PURE__*/function () {
               }
             } else {
               // 清空错误提示信息
-              if (item.error.message) {
-                var _errorElem = document.querySelector(item.error.message.id);
+              if (rule.error.message) {
+                var _errorElem = document.querySelector(rule.error.message.id);
                 if (_errorElem) {
                   _errorElem.innerText = '';
                 }
-                if (_errorElem && _errorElem.classList.contains(item.error.message["class"])) {
-                  _errorElem.classList.remove(item.error.message["class"]);
+                if (_errorElem && _errorElem.classList.contains(rule.error.message["class"])) {
+                  _errorElem.classList.remove(rule.error.message["class"]);
                 }
               }
 
               // 清空input框样式
-              if (item.error.input) {
-                var _inputElem = document.querySelector(item.error.input.id);
-                if (_inputElem && _inputElem.classList.contains(item.error.input["class"])) {
-                  _inputElem.classList.remove(item.error.input["class"]);
+              if (rule.error.input) {
+                var _inputElem = document.querySelector(rule.error.input.id);
+                if (_inputElem && _inputElem.classList.contains(rule.error.input["class"])) {
+                  _inputElem.classList.remove(rule.error.input["class"]);
                 }
               }
             }
@@ -200,16 +208,16 @@ var validater = /*#__PURE__*/function () {
         };
         for (var i = 0; i < rules.length; i++) {
           // 当前数据
-          var _item = rules[i];
+          var item = rules[i];
 
           // 获取验证目标字段值
-          var value = _item.value;
+          var value = item.value;
 
           // 获取验证目标配置的规则
-          var currentRules = _item.rules;
+          var currentRules = item.rules;
 
           // 赋值当前验证字段到返回对象
-          result.name = _item.name;
+          result.name = item.name;
           for (var key in currentRules) {
             // 当前字段如果没有设置required规则，只有在值存在的情况再验证
             if (!currentRules["required"] && value && !validater.rules[key](value)) {
@@ -219,8 +227,16 @@ var validater = /*#__PURE__*/function () {
               break;
             }
 
-            // 当前验证规则是required，直接验证
-            if (key == "required" && !validater.rules[key](value)) {
+            // 当前字段如果有设置required规则，直接再验证
+            if (currentRules["required"] && !validater.rules[key](value)) {
+              result.status = false;
+              result.message = currentRules[key];
+              mark = false;
+              break;
+            }
+
+            // 默认有值就验证
+            if (value && !validater.rules[key](value)) {
               result.status = false;
               result.message = currentRules[key];
               mark = false;
@@ -229,22 +245,22 @@ var validater = /*#__PURE__*/function () {
           }
           if (!mark) {
             // 自动更新错误提示
-            if (_item.error && Object.prototype.toString.call(_item.error) == '[object Object]') {
+            if (item.error && Object.prototype.toString.call(item.error) == '[object Object]') {
               // 更新错误提示文本到dom
-              if (_item.error.message) {
-                var errorElem = document.querySelector(_item.error.message.id);
+              if (item.error.message) {
+                var errorElem = document.querySelector(item.error.message.id);
                 if (errorElem) {
                   errorElem.innerText = result.message;
                 }
-                if (errorElem && _item.error.message["class"]) {
-                  errorElem.classList.add(_item.error.message["class"]);
+                if (errorElem && item.error.message["class"]) {
+                  errorElem.classList.add(item.error.message["class"]);
                 }
               }
               // 更新input框样式
-              if (_item.error.input) {
-                var inputElem = document.querySelector(_item.error.input.id);
-                if (inputElem && _item.error.input["class"]) {
-                  inputElem.classList.add(_item.error.input["class"]);
+              if (item.error.input) {
+                var inputElem = document.querySelector(item.error.input.id);
+                if (inputElem && item.error.input["class"]) {
+                  inputElem.classList.add(item.error.input["class"]);
                 }
 
                 // 输入框聚焦
@@ -254,21 +270,21 @@ var validater = /*#__PURE__*/function () {
             break;
           } else {
             // 清空错误提示信息
-            if (_item.error.message) {
-              var _errorElem2 = document.querySelector(_item.error.message.id);
+            if (item.error.message) {
+              var _errorElem2 = document.querySelector(item.error.message.id);
               if (_errorElem2) {
                 _errorElem2.innerText = '';
               }
-              if (_errorElem2 && _errorElem2.classList.contains(_item.error.message["class"])) {
-                _errorElem2.classList.remove(_item.error.message["class"]);
+              if (_errorElem2 && _errorElem2.classList.contains(item.error.message["class"])) {
+                _errorElem2.classList.remove(item.error.message["class"]);
               }
             }
 
             // 清空input框样式
-            if (_item.error.input) {
-              var _inputElem2 = document.querySelector(_item.error.input.id);
-              if (_inputElem2 && _inputElem2.classList.contains(_item.error.input["class"])) {
-                _inputElem2.classList.remove(_item.error.input["class"]);
+            if (item.error.input) {
+              var _inputElem2 = document.querySelector(item.error.input.id);
+              if (_inputElem2 && _inputElem2.classList.contains(item.error.input["class"])) {
+                _inputElem2.classList.remove(item.error.input["class"]);
               }
             }
           }

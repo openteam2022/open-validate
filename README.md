@@ -20,32 +20,64 @@ let data = {
 
 // 配置规则 
 let rule = {
-    name: 'name',
-    value: data.name,
+    name: 'name', // 当前验证值的属性名
+    value: data.name, // 当前需要验证的值
+    // 配置验证规则
     rules: {
-        required: '名字不能为空',
-        string: '名字类型为字符串'
+        required: '名字不能为空',  // 验证规则和对应错误提示信息
+        string: '名字类型为字符串' // 验证规则和对应错误提示信息
     },
+    // 配置错误信息，可忽略，非必填
     error:{
+        // 文本操作
         message: {
-            id: '#text-error',
-            class: "显示的样式"
+            id: '#id', // 如需输入框下面显示错误文本，添加显示元素id
+            class: "className" // 显示元素class，如果自定义样式，可不写
         },
-           input:{
-            id: '#input',
-            class: "错误时input框的样式"
+        // 输入框操作
+        input:{
+            id: '#id', // 输入框id
+            class: "className" // 错误时如需修改输入框样式，则添加对应class样式名
         }
     }
 }
 
-// primose方式
+// primose方式验证
 validater.test(rule).then(res=>{
     console.log(res)
+
+     // 验证通过返回值
+    // { 
+    //  status: true,
+    //  name: 'name',
+    //  message: '验证通过'
+    // }
+
+    // 验证不通过返回值
+    // { 
+    //  status: false,
+    //  name: 'name',
+    //  message: '自定义错误提示信息'
+    // }
 })
 
-// 回调方式
+// 回调方式验证
 validater.test(rule,(res)=>{
     console.log(res)
+
+     // 验证通过返回值
+    // { 
+    //  status: true,
+    //  name: 'name',
+    //  message: '验证通过'
+    // }
+
+    // 验证不通过返回值
+    // { 
+    //  status: false,
+    //  name: 'name',
+    //  message: '自定义错误提示信息'
+    // }
 })
 ```
 
@@ -61,46 +93,87 @@ let data = {
 // 配置验证规则
 let rules = [
     {
-        name: 'name',
-        value: data.name,
+        name: 'name', // 当前验证值的属性名
+        value: data.name, // 当前需要验证的值
+        // 配置验证规则
         rules: {
-            required: '名字不能为空'
+            required: '名字不能为空',  // 验证规则和对应错误提示信息
+            string: '名字类型为字符串' // 验证规则和对应错误提示信息
         },
-        error: {
-            // 配置报错提示文本
+        // 配置错误信息，可忽略，非必填
+        error:{
+            // 文本操作
             message: {
-                id: '#text-error',
-                class: "color:var(--color-danger-2)"
+                id: '#id', // 如需输入框下面显示错误文本，添加显示元素id
+                class: "className" // 显示元素class，如果自定义样式，可不写
             },
-            // 配置报错input框的样式
-               input:{
-                id: '#text-input',
-                class: "border-color:var(--color-danger-2)"
-            }, 
+            // 输入框操作
+            input:{
+                id: '#id', // 输入框id
+                class: "className" // 错误时如需修改输入框样式，则添加对应class样式名
+            }
         }
     },
     {
-        name: 'password',
-        value: data.password,
+        name: 'password', // 当前验证值的属性名
+        value: data.password, // 当前需要验证的值
+        // 配置验证规则
         rules: {
-            required: '密码不能为空',
-            password: '密码格式不对'
+            required: '密码不能为空',  // 验证规则和对应错误提示信息
+            password: '密码格式不对' // 验证规则和对应错误提示信息
         },
-        error: {
-
+        // 配置错误信息，可忽略，非必填
+        error:{
+            // 文本操作
+            message: {
+                id: '#id', // 如需输入框下面显示错误文本，添加显示元素id
+                class: "className" // 显示元素class，如果自定义样式，可不写
+            },
+            // 输入框操作
+            input:{
+                id: '#id', // 输入框id
+                class: "className" // 错误时如需修改输入框样式，则添加对应class样式名
+            }
         }
     },
 ]
 
-// promise方式
+// primose方式验证
 validater.tests(rules).then(res=>{
     console.log(res)
+
+     // 验证通过返回值
+    // { 
+    //  status: true,
+    //  name: 'name',
+    //  message: '验证通过'
+    // }
+
+    // 验证不通过返回值
+    // { 
+    //  status: false,
+    //  name: 'name',
+    //  message: '自定义错误提示信息'
+    // }
 })
 
-
-// 回调方式
-validater.tests(rules,res=>{
+// 回调方式验证
+validater.tests(rules,(res)=>{
     console.log(res)
+
+     // 验证通过返回值
+    // { 
+    //  status: true,
+    //  name: 'name',
+    //  message: '验证通过'
+    // }
+
+    // 验证不通过返回值
+    // { 
+    //  status: false,
+    //  name: 'name',
+    //  message: '自定义错误提示信息'
+    // }
 })
 ```
 
@@ -110,10 +183,13 @@ validater.tests(rules,res=>{
 ```js
 // 添加验证规则
 validater.addRule({
-    name: "规则名",
+    name: "ruleName", // 规则名
     handle: function(value){
-        // 验证值，返回false
-        return false;
+
+        // 验证逻辑
+
+        // 验证值，返回true或false
+        return boolean;
     }
 })
 ```
@@ -121,33 +197,57 @@ validater.addRule({
 使用自定义规则
 
 ```js
-// 添加值是否等于englist验证规则
-validater.addRule({
-    name: "english",
-    handle: function(value){
-        // 验证值，返回false
-        return value !== 'englist';
-    }
-})
-
-
 // 模拟表单数据
 let data = {
-    name: 'name'
+    value: 2
 }
 
 // 配置规则 
 let rule = {
-    name: 'name',
-    value: data.name,
+    name: 'value',
+    value: data.value,
     rules: {
-        englist: '这个是自定义的验证规则',
+        one: '抱歉当前值不等于1',// 使用规则one
     }
 }
 
-// 验证
+// promise方式验证
 validater.test(rule).then(res=>{
-    console.log(res)
+    console.log(res);
+
+    // 验证通过返回值
+    // { 
+    //  status: true,
+    //  name: 'value',
+    //  message: '验证通过'
+    // }
+
+    // 验证不通过返回值
+    // { 
+    //  status: false,
+    //  name: 'value',
+    //  message: '抱歉当前值不等于1'
+    // }
+})
+
+
+// 回调方式验证,
+validater.test(rule).then(res=>{
+    console.log(res);
+
+    // 验证通过返回值
+    // { 
+    //  status: true,
+    //  name: 'value',
+    //  message: '验证通过'
+    // }
+
+    // 验证不通过返回值
+    // { 
+    //  status: false,
+    //  name: 'value',
+    //  message: '抱歉当前值不等于1'
+    // }
 })
 ```
 
