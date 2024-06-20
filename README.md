@@ -2,7 +2,7 @@
 
 表单验证工具函数库
 
-[在线使用文档](http://validater.openteam.site)
+[open-validater在线使用文档](https://validater.openteam.site)
 
 ## 安装
 
@@ -233,22 +233,22 @@ validater.test(rule).then(res=>{
 })
 
 
-// 回调方式验证,
-validater.test(rule).then(res=>{
-    console.log(res);
+// 回调方式验证
+validater.test(rule,(res)=>{
+    console.log(res)
 
-    // 验证通过返回值
+     // 验证通过返回值
     // { 
     //  status: true,
-    //  name: 'value',
+    //  name: 'name',
     //  message: '验证通过'
     // }
 
     // 验证不通过返回值
     // { 
     //  status: false,
-    //  name: 'value',
-    //  message: '抱歉当前值不等于1'
+    //  name: 'name',
+    //  message: '自定义错误提示信息'
     // }
 })
 ```
